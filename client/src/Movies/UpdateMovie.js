@@ -27,6 +27,17 @@ const UpdateMovie = props => {
         event.persist();
         setMovie({...movie, [event.target.name]: event.target.value });
     }
+
+    const deleteMovie = event => {
+        event.preventDefault();
+        axios.delete(`http://localhost:5000/api/movies/${movie.id}`)
+        .then(res => {
+          console.log(res)
+          setTimeout(props.history.push('/'), 0);
+          window.location.href = window.location.href;
+        })
+        .catch(error => console.log(error));
+      };
     
     const submitEdit = event => {
         event.preventDefault();
@@ -81,6 +92,7 @@ const UpdateMovie = props => {
           value={movie.stars}
         />
         <button>Update</button>
+        <button onClick={deleteMovie}>Delete</button>
       </form>
     </div>
   );
